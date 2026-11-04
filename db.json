@@ -1,0 +1,66 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "riddles":[
+    {
+      "id": 1,
+      "name": "Easy Math",
+      "taskDescription": "What is 5 + 3?",
+      "correctAnswer": "8",
+      "difficulty": "easy",
+      "timeLimit": 5,
+      "hint": "hint"
+    },
+    {
+      "id": 2,
+      "name": "Basic Geography",
+      "taskDescription": "What is the capital of France?",
+      "correctAnswer": "Paris",
+      "difficulty": "medium",
+      "timeLimit": 5,
+      "hint": "hint"
+    },
+    {
+      "id": 3,
+      "name": "Word Length",
+      "taskDescription": "How many letters are in the word 'JavaScript'?",
+      "correctAnswer": "10",
+      "difficulty": "easy",
+      "timeLimit": 5,
+      "hint": "hint"
+    },
+    {
+      "id": 4,
+      "name": "Color Mixing",
+      "taskDescription": "What color do you get when you mix blue and yellow?",
+      "correctAnswer": "Green",
+      "difficulty": "hard",
+      "timeLimit": 5,
+      "hint": "hint"
+    },
+    {
+      "id": 5,
+      "name": "Simple Science",
+      "taskDescription": "What is the chemical symbol for water?",
+      "correctAnswer": "H2O",
+      "difficulty": "easy",
+      "timeLimit": 5,
+      "hint": "hint"
+    }
+  ]
+}
