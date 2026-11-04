@@ -14,6 +14,7 @@ import PromptSync from 'prompt-sync';
 import AllRiddles from './riddles/index.js';
 import Player from './classes/Player.js';
 import Riddle from './classes/Riddle.js';
+import { findPlayerByName, createPlayer, updatePlayer, getAllPlayers } from './api/playersApi.js';
 
 
 const prompt = PromptSync();
