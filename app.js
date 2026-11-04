@@ -30,7 +30,7 @@ if (existingPlayer) {
         console.log(`Hi ${existingPlayer.name}! Welcome to the game.`);
     }
 } else {
-    
+
     await createPlayer(inputName);
 }
 
@@ -76,6 +76,19 @@ while (choice !== '0') {
             break;
         case '6':
             console.log('\n--> Viewing leaderboard...');
+            const allPlayers = await getAllPlayers();
+            const finishedPlayers = allPlayers
+                .filter(p => p.lowestTime !== null && p.lowestTime !== undefined)
+                .sort((a, b) => a.lowestTime - b.lowestTime);
+
+            console.log('\n🏆 Leaderboard:');
+            if (finishedPlayers.length === 0) {
+                console.log('No players on the leaderboard yet.');
+            } else {
+                finishedPlayers.forEach((p, index) => {
+                    console.log(`${index + 1}. ${p.name} - ${p.lowestTime} seconds`);
+                });
+            }
             break;
         case '0':
             console.log('\nExiting... Goodbye!');
@@ -117,7 +130,7 @@ for (let i = AllRiddles.length - 1; i > 0; i--) {
 console.log(AllRiddles)
 player1.showStats();
 
-const finalTime = Math.round(player1.totalTime || 0); 
+const finalTime = Math.round(player1.totalTime || 0);
 
 console.log(`Great job, ${inputName}!`);
 console.log(`Your time: ${finalTime} seconds`);
@@ -160,7 +173,7 @@ async function createRiddle() {
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, description, correctAnswer ,difficulty,timeLimit,hint})
+            body: JSON.stringify({ name, description, correctAnswer, difficulty, timeLimit, hint })
         });
 
         if (!response.ok) throw new Error(`error server ${response.status}`);
