@@ -20,6 +20,22 @@ const prompt = PromptSync();
 
 console.log('welcome to Riddle games!')
 let inputName = prompt(`wath's is your name?`)
+
+let existingPlayer = await findPlayerByName(inputName);
+
+if (existingPlayer) {
+    if (existingPlayer.lowestTime !== null && existingPlayer.lowestTime !== undefined) {
+        console.log(`Hi ${existingPlayer.name}! Your previous lowest time was ${existingPlayer.lowestTime} seconds.`);
+    } else {
+        console.log(`Hi ${existingPlayer.name}! Welcome to the game.`);
+    }
+} else {
+    
+    await createPlayer(inputName);
+}
+
+console.log("Time to Beat");
+
 const player1 = new Player(inputName)
 
 let choice = '';
