@@ -117,6 +117,19 @@ for (let i = AllRiddles.length - 1; i > 0; i--) {
 console.log(AllRiddles)
 player1.showStats();
 
+const finalTime = Math.round(player1.totalTime || 0); 
+
+console.log(`Great job, ${inputName}!`);
+console.log(`Your time: ${finalTime} seconds`);
+
+if (existingPlayer) {
+    if (existingPlayer.lowestTime === null || finalTime < existingPlayer.lowestTime) {
+        existingPlayer.lowestTime = finalTime;
+        await updatePlayer(existingPlayer);
+        console.log("New record! Time updated.");
+    }
+}
+
 
 const API_URL = 'http://localhost:3000/riddles';
 
