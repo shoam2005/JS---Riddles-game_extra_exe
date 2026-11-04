@@ -44,17 +44,19 @@ while (choice !== '0') {
             break;
         case '2':
             console.log('\n--> Creating a new riddle...');
+            createRiddle();
             break;
         case '3':
             console.log('\n--> Reading all riddles...');
+            getAllRiddles();
             break;
         case '4':
             console.log('\n--> Updating an existing riddle...');
+            updateRiddle();
             break;
         case '5':
             console.log('\n--> Deleting a riddle...');
-            const id = prompt('Enter riddle ID to delete: ');
-            deleteRiddle(id);
+            deleteRiddle();
             break;
         case '6':
             console.log('\n--> Viewing leaderboard...');
@@ -98,6 +100,104 @@ for (let i = AllRiddles.length - 1; i > 0; i--) {
 }
 console.log(AllRiddles)
 player1.showStats();
+
+
+const API_URL = 'http://localhost:3000/riddles';
+
+async function getAllRiddles() {
+    try {
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error(`error server: ${response.status}`);
+
+        const riddles = await response.json();
+        console.log('\n--- All Riddles ---');
+        console.table(riddles);
+        return riddles;
+    } catch (error) {
+        console.error('failed on load riddles', error.message);
+    }
+}
+
+async function createRiddle() {
+    try {
+        console.log('\n--- Create a New Riddle ---');
+        const name = prompt('Enter riddle name: ');
+        const description = prompt('Enter description: ');
+        const correctAnswer = prompt('Enter correct answer: ');
+        const difficulty = prompt('Enter difficulty:');
+        const timeLimit = prompt('enter timeLimit:')
+        const hint = prompt('enter hint')
+
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, description, correctAnswer ,difficulty,timeLimit,hint})
+        });
+
+        if (!response.ok) throw new Error(`error server ${response.status}`);
+
+        const newRiddle = await response.json();
+        console.log('\nRiddle saved!');
+        return newRiddle;
+    } catch (error) {
+        console.error('failed on create riddle', error.message);
+    }
+}
+
+async function updateRiddle() {
+    try {
+        console.log('\n--- Update an Existing Riddle ---');
+        const id = prompt('Enter riddle ID to update: ');
+
+        console.log('Enter new details (leave blank or fill as needed):');
+        const name = prompt('Enter new riddle name: ');
+        const description = prompt('Enter new description: ');
+        const correctAnswer = prompt('Enter new correct answer: ');
+        const difficulty = prompt('Enter new difficulty:');
+        const timeLimit = prompt('enter new timeLimit:')
+        const hint = prompt('enter new hint')
+
+        const updatedData = {};
+        if (name) updatedData.name = name;
+        if (description) updatedData.description = description;
+        if (correctAnswer) updatedData.correctAnswer = correctAnswer;
+        if (difficulty) updatedData.difficulty = difficulty;
+        if (timeLimit) updatedData.timeLimit = timeLimit;
+        if (hint) updatedData.hint = hint
+
+        const response = await fetch(`${API_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedData)
+        });
+
+        if (!response.ok) throw new Error(`error server ${response.status}`);
+
+        const result = await response.json();
+        console.log('\nRiddle updated successfully!');
+        return result;
+    } catch (error) {
+        console.error('failed on update riddle', error.message);
+    }
+}
+
+async function deleteRiddle() {
+    try {
+        console.log('\n--- Delete a Riddle ---');
+        const id = prompt('Enter riddle ID to delete: ');
+
+        const response = await fetch(`${API_URL}/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (!response.ok) throw new Error(`error server ${response.status}`);
+
+        console.log('\nRiddle deleted successfully!');
+    } catch (error) {
+        console.error('failed on delete riddle', error.message);
+    }
+}
 
 
 
