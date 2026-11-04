@@ -62,5 +62,9 @@
       "timeLimit": 5,
       "hint": "hint"
     }
-  ]
+  ],
+  "players": [
+  { "id": 1, "name": "Yishai", "lowestTime": 72 },
+  { "id": 2, "name": "Sarah", "lowestTime": 65 }
+]
 }
